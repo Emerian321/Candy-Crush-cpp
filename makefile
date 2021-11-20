@@ -1,7 +1,6 @@
-CC = g++-10 --std='c++20' -Wall -Wextra -Wpedantic
+FLAGS=-lfltk  -Wall -std=c++17
 
-.PHONY: all
-all: $(patsubst %.cpp, %.out, $(wildcard *.cpp))
+all: main
 
-%.out: %.cpp makefile
-	$(CC) $< -o $@ -lfltk
+main: main.cpp rectangle.h rectangle.cpp cell.h cell.cpp canvas.h canvas.cpp
+	g++ main.cpp rectangle.h rectangle.cpp cell.h cell.cpp canvas.h canvas.cpp -o main $(FLAGS)

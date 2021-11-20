@@ -1,7 +1,6 @@
-#include<vector>
-
 #include "canvas.h"
-#include "cell.h"
+
+using namespace std;
 
 const int gridSize = 10;
 
@@ -11,45 +10,25 @@ Canvas::Canvas() {
     for (int y = 0; y<gridSize; y++)
       cells[x].push_back({{50*x+25, 50*y+25}, 40, 40});
   }
-  set_bombs();
-  set_neighbors();
-  set_nearBombs();
+  set_neighbours();
 }
 
-void Canvas::set_bombs() {
-  for (int a = 0; a < gridSize*gridSize/8; a++) {
-    int i = rand() % 10;
-    int j = rand() % 10;
-    while (cells[i][j].getBomb()) {
-      i = rand() % 10;
-      j = rand() % 10;
-    }
-    cells[i][j].setBomb();
-  }
-}
-
-void Canvas::set_neighbors() {
+void Canvas::set_neighbours() {
   for (int x = 0; x<gridSize; x++)
     for (int y = 0; y<gridSize; y++)
-      cells[x][y].setNeighbors(find_neighbors(x, y));
+      cells[x][y].setNeighbours(find_neighbours(x, y));
 }
 
-vector <Cell *>Canvas::find_neighbors(int x, int y) {
-  vector <Cell *> neighbors;
+vector <Cell *>Canvas::find_neighbours(int x, int y) {
+  vector <Cell *> neighbours;
   for (int a = x-1; a < x+2; a++) {
     for (int b = y-1; b < y+2; b++) {
       if (a >= 0 and b >=0 and a < gridSize and b < gridSize and (a!=x or b!=y)) {
-        neighbors.push_back(&cells[a][b]);
+        neighbours.push_back(&cells[a][b]);
       }
     }
   }
-  return neighbors;
-}
-
-void Canvas::set_nearBombs() {
-  for (int x = 0; x<gridSize; x++)
-    for (int y = 0; y<gridSize; y++)
-      cells[x][y].NearBombCount();
+  return neighbours;
 }
 
 void Canvas::draw() {

@@ -1,43 +1,36 @@
+/*--------------------------------------------------
+
+Cell class.
+
+The Canvas class below will have cells as instance
+vraiables and call the methods of Cell
+
+--------------------------------------------------*/
+
 #ifndef __CELL_H
 #define __CELL_H
 
-#include<vector>
+#include <vector>
 
 #include "rectangle.h"
-#include "point.h"
 
 class Cell {
   Rectangle r;
-  bool is_bomb = false;
-  vector <Cell *> neighbors;
-  int nearBomb = 0;
+  std::vector <Cell *> neighbours;
   Point center;
-  bool revealed = false;
  public:
   // Constructor
   Cell(Point center, int w, int h);
 
   // Setters/Getters
-  void setBomb() {
-  is_bomb = true;
+  std::vector <Cell *> getNeighbours() {
+    return neighbours;
   }
-  bool getBomb() {
-  return is_bomb;
-  }
-  int getNearBomb () {
-    return nearBomb;
-  }
-  void setNeighbors(vector <Cell *> found_neighbors) {
-    neighbors = found_neighbors;
-  }
-  vector <Cell *> getNeighbors() {
-    return neighbors;
+  void setNeighbours(std::vector<Cell *> found_neighbours) {
+    this->neighbours = found_neighbours;
   }
 
   // Objects methods
-  void NearBombCount();
-  void reveal();
-  void endgame();
 
   // Methods that draw and handle events
   void draw();
