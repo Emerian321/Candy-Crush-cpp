@@ -1,3 +1,15 @@
+/*--------------------------------------------------
+
+Rectangle class.
+
+Use to display a fillend-in rectangle on the screen
+with different colors for the fill and the border
+
+It should have all the features you need and you
+should not need to edit it.
+
+--------------------------------------------------*/
+
 #ifndef __RECTANGLE_H
 #define __RECTANGLE_H
 
@@ -7,16 +19,6 @@
 #include <FL/Fl_Box.H>
 
 #include "point.h"
-
-/*--------------------------------------------------
-
-Rectangle class.
-
-Use to display a fillend-in rectangle on the screen
-with different colors for the fill and the border
-
---------------------------------------------------*/
-
 
 class Rectangle {
   Point center;
