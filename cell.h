@@ -11,7 +11,6 @@ vraiables and call the methods of Cell
 #define __CELL_H
 
 #include <vector>
-#include <random>
 #include <FL/Fl.H>
 #include <FL/fl_draw.H>
 #include <FL/Fl_Double_Window.H>
@@ -35,6 +34,8 @@ class Cell {
   void setNeighbours(std::vector<Cell *> found_neighbours) {
     this->neighbours = found_neighbours;
   }
+
+  void newFillColor(); 
 
   // Objects methods
 
