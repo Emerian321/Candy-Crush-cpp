@@ -2,13 +2,13 @@
 
 using namespace std;
 
-const int gridSize = 10;
+const int gridSize = 9;
 
 Canvas::Canvas() {
   for (int x = 0; x<gridSize; x++) {
     cells.push_back({});
     for (int y = 0; y<gridSize; y++)
-      cells[x].push_back({{50*x+25, 50*y+25}, 40, 40});
+      cells[x].push_back({{55*x+28, 55*y+28}, 45, 45});
   }
   set_neighbours();
 }

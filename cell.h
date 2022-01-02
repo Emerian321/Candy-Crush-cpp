@@ -11,6 +11,11 @@ vraiables and call the methods of Cell
 #define __CELL_H
 
 #include <vector>
+#include <random>
+#include <FL/Fl.H>
+#include <FL/fl_draw.H>
+#include <FL/Fl_Double_Window.H>
+#include <FL/Fl_Box.H>
 
 #include "rectangle.h"
 
@@ -18,6 +23,7 @@ class Cell {
   Rectangle r;
   std::vector <Cell *> neighbours;
   Point center;
+  Fl_Color fillcolor;
  public:
   // Constructor
   Cell(Point center, int w, int h);
