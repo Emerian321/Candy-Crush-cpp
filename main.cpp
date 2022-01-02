@@ -17,12 +17,7 @@
 #include "cell.h"
 #include "rectangle.h"
 #include "point.h"
-
-using namespace std;
-
-const int windowWidth = 500;
-const int windowHeight = 500;
-const double refreshPerSecond = 60;
+#include "const.h"
 
 
 /*--------------------------------------------------
@@ -34,7 +29,7 @@ MainWindow class.
 class MainWindow : public Fl_Window {
   Canvas canvas;
  public:
-  MainWindow() : Fl_Window(500, 500, windowWidth, windowHeight, "Crush ") {
+  MainWindow() : Fl_Window(500, 500, windowWidth, windowHeight, "Disco") {
     Fl::add_timeout(1.0/refreshPerSecond, Timer_CB, this);
     resizable(this);
   }
@@ -69,7 +64,6 @@ class MainWindow : public Fl_Window {
 main
 
 --------------------------------------------------*/
-
 
 int main(int argc, char *argv[]) {
   srand(time(0));
