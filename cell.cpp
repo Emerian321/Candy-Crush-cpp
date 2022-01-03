@@ -19,9 +19,24 @@ void Cell::mouseMove(Point mouseLoc) {
   }
 }
 
-void Cell::newFillColor(){
-  this->fillcolor = colors[rand() % 5];
-  this->r.setFillColor(this->fillcolor);
+void Cell::DetectLine(bool rec=true) {
+  if (fillcolor == neighbours[0]->fillcolor and fillcolor == neighbours[2]->fillcolor) {
+    setToDestroy();
+    neighbours[0]->setToDestroy();
+    neighbours[2]->setToDestroy();
+  }
+
+  if (fillcolor == neighbours[1]->fillcolor and fillcolor == neighbours[3]->fillcolor) {
+    setToDestroy();
+    neighbours[1]->setToDestroy();
+    neighbours[3]->setToDestroy();
+  }
+
+  if (rec) {
+      for (auto &neighour: neighbours) {
+        neighour->DetectLine(rec=false);
+      }
+  }
 }
 
 void Cell::mouseClick(Point mouseLoc) {
