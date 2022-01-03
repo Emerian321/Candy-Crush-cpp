@@ -9,6 +9,7 @@ Constants header file
 #include <FL/fl_draw.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Box.H>
+#include <vector>
 
 const int DIRECTIONS[4][2] = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };
 
@@ -20,6 +21,9 @@ const Fl_Color COLORS[6] = {FL_RED, FL_DARK_RED, FL_YELLOW, FL_GREEN, FL_BLUE, F
 
 //canvas.cpp
 const int gridSize = 9;
+
+//cell.cpp
+const std::vector <Fl_Color> colors = {FL_RED, FL_BLUE, FL_MAGENTA, FL_GREEN, FL_YELLOW};
 
 //main.cpp
 const int windowWidth = 500;

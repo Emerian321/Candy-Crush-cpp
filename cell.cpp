@@ -35,7 +35,6 @@ void Cell::DetectLine() {
         neighour->DetectLine();
       }
   }
-
 }
 
 void Cell::mouseClick(Point mouseLoc) {
