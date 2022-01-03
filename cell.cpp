@@ -1,7 +1,10 @@
 #include "cell.h"
+#include "const.h"
+#include <random>
 
 Cell::Cell(Point center, int w, int h):
   r(center, w, h, FL_BLACK, FL_WHITE), center(center) {
+  newFillColor();
   }
 
 void Cell::draw() {
@@ -34,7 +37,6 @@ void Cell::DetectLine(bool rec=true) {
         neighour->DetectLine(rec=false);
       }
   }
-
 }
 
 void Cell::mouseClick(Point mouseLoc) {
