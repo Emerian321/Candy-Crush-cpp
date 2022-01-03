@@ -24,6 +24,8 @@ class Cell {
   std::vector <Cell *> neighbours;
   Point center;
   Fl_Color fillcolor;
+  bool toDestroy = false;
+
  public:
   // Constructor
   Cell(Point center, int w, int h);
@@ -36,7 +38,12 @@ class Cell {
     this->neighbours = found_neighbours;
   }
 
+  void setToDestroy() {
+    toDestroy = true;
+  }
+
   // Objects methods
+  void DetectLine(bool rec=true);
 
   // Methods that draw and handle events
   void draw();

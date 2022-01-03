@@ -16,6 +16,26 @@ void Cell::mouseMove(Point mouseLoc) {
   }
 }
 
+void Cell::DetectLine(bool rec=true) {
+  if (fillcolor == neighbours[0]->fillcolor and fillcolor == neighbours[2]->fillcolor) {
+    setToDestroy();
+    neighbours[0]->setToDestroy();
+    neighbours[2]->setToDestroy();
+  }
+
+  if (fillcolor == neighbours[1]->fillcolor and fillcolor == neighbours[3]->fillcolor) {
+    setToDestroy();
+    neighbours[1]->setToDestroy();
+    neighbours[3]->setToDestroy();
+  }
+
+  if (rec) {
+      for (auto &neighour: neighbours) {
+        neighour->DetectLine(rec=false);
+      }
+  }
+
+}
 
 void Cell::mouseClick(Point mouseLoc) {
 }

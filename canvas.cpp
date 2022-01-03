@@ -1,7 +1,6 @@
 #include "canvas.h"
 #include "const.h"
 
-
 Canvas::Canvas() {
   for (int x = 0; x<gridSize; x++) {
     cells.push_back({});
@@ -19,12 +18,8 @@ void Canvas::set_neighbours() {
 
 std::vector <Cell *>Canvas::find_neighbours(int x, int y) {
   std::vector <Cell *> neighbours;
-  for (int a = x-1; a < x+2; a++) {
-    for (int b = y-1; b < y+2; b++) {
-      if (a >= 0 and b >=0 and a < gridSize and b < gridSize and (a!=x or b!=y)) {
-        neighbours.push_back(&cells[a][b]);
-      }
-    }
+  for (auto DIRECTION: DIRECTIONS) {
+      neighbours.push_back(&cells[x+DIRECTION[0]][y+DIRECTION[1]]);
   }
   return neighbours;
 }
