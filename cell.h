@@ -18,17 +18,18 @@ vraiables and call the methods of Cell
 #include <FL/Fl_Box.H>
 
 #include "rectangle.h"
+#include "fruit.h"
 
 class Cell {
   Rectangle r;
   std::vector <Cell *> neighbours;
   Point center;
-  Fl_Color fillcolor;
+  Fruit fruit;
   bool toDestroy = false;
 
  public:
   // Constructor
-  Cell(Point center, int w, int h);
+  Cell(Point center);
 
   // Setters/Getters
   std::vector <Cell *> getNeighbours() {
@@ -43,7 +44,7 @@ class Cell {
   }
 
   // Objects methods
-  void DetectLine(bool rec=true);
+  void DetectLine();
 
   // Methods that draw and handle events
   void draw();

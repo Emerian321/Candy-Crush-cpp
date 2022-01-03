@@ -5,7 +5,7 @@ Canvas::Canvas() {
   for (int x = 0; x<gridSize; x++) {
     cells.push_back({});
     for (int y = 0; y<gridSize; y++)
-      cells[x].push_back({{56*x+25, 56*y+25}, 45, 45});
+      cells[x].push_back({{56*x+25, 56*y+25}});
   }
   set_neighbours();
 }

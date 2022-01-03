@@ -1,11 +1,12 @@
 #include "cell.h"
+#include "const.h"
 
-Cell::Cell(Point center, int w, int h):
-  r(center, w, h, FL_BLACK, FL_WHITE), center(center) {
+Cell::Cell(Point center):
+  r(center, EDGE, EDGE), center{center}, fruit{center} {
   }
 
 void Cell::draw() {
-  r.draw();
+  fruit.draw();
 }
 
 void Cell::mouseMove(Point mouseLoc) {
@@ -16,22 +17,22 @@ void Cell::mouseMove(Point mouseLoc) {
   }
 }
 
-void Cell::DetectLine(bool rec=true) {
-  if (fillcolor == neighbours[0]->fillcolor and fillcolor == neighbours[2]->fillcolor) {
+void Cell::DetectLine() {
+  if (fruit.getColor() == neighbours[0]->fruit.getColor() and fruit.getColor() == neighbours[2]->fruit.getColor()) {
     setToDestroy();
     neighbours[0]->setToDestroy();
     neighbours[2]->setToDestroy();
   }
 
-  if (fillcolor == neighbours[1]->fillcolor and fillcolor == neighbours[3]->fillcolor) {
+  if (fruit.getColor() == neighbours[1]->fruit.getColor() and fruit.getColor() == neighbours[3]->fruit.getColor()) {
     setToDestroy();
     neighbours[1]->setToDestroy();
     neighbours[3]->setToDestroy();
   }
 
-  if (rec) {
+  if (true) {
       for (auto &neighour: neighbours) {
-        neighour->DetectLine(rec=false);
+        neighour->DetectLine();
       }
   }
 
