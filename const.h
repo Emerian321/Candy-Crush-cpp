@@ -11,7 +11,7 @@ Constants header file
 #include <FL/Fl_Box.H>
 #include <vector>
 
-const int DIRECTIONS[4][2] = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };
+const int DIRECTIONS[4][2] = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} }; //Haut Droite Bas Gauche
 
 //cell.cpp
 const int EDGE = 45;

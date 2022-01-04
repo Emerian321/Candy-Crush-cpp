@@ -1,12 +1,14 @@
 #include "cell.h"
 #include "const.h"
+#include <stdio.h>
+#include <iostream>
 
 Cell::Cell(Point center):
-  r(center, EDGE, EDGE), center{center}, fruit{center} {
+  r(center, EDGE, EDGE), center{center}, fruit{new Fruit(center)} {
   }
 
 void Cell::draw() {
-  fruit.draw();
+  fruit->draw();
 }
 
 void Cell::mouseMove(Point mouseLoc) {
@@ -17,25 +19,19 @@ void Cell::mouseMove(Point mouseLoc) {
   }
 }
 
-void Cell::DetectLine() {
-  if (fruit.getColor() == neighbours[0]->fruit.getColor() and fruit.getColor() == neighbours[2]->fruit.getColor()) {
-    setToDestroy();
-    neighbours[0]->setToDestroy();
-    neighbours[2]->setToDestroy();
-  }
-
-  if (fruit.getColor() == neighbours[1]->fruit.getColor() and fruit.getColor() == neighbours[3]->fruit.getColor()) {
-    setToDestroy();
-    neighbours[1]->setToDestroy();
-    neighbours[3]->setToDestroy();
-  }
-
-  if (true) {
-      for (auto &neighour: neighbours) {
-        neighour->DetectLine();
+void Cell::DetectLine(bool rec) {
+  for (int i = 0; i < 2; i++){
+    if (neighbours[i] != nullptr && neighbours[i + 2] != nullptr){
+      if (fruit->getColor() == neighbours[i]->fruit->getColor() && fruit->getColor() == neighbours[i + 2]->fruit->getColor()) {
+        fruit->setColor(FL_BLACK);
+        neighbours[i]->fruit->setColor(FL_BLACK);
+        neighbours[i + 2]->fruit->setColor(FL_BLACK);
       }
+    }
   }
+} 
+
+bool Cell::mouseClick(Point mouseLoc) {
+  return fruit->mouseClick(mouseLoc);
 }
 
-void Cell::mouseClick(Point mouseLoc) {
-}

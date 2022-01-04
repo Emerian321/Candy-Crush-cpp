@@ -49,10 +49,13 @@ class Rectangle {
   int getHeight() {
     return h;
   }
+
   bool contains(Point p);
+
   Point getCenter() {
     return center;
   }
+  
 };
 
 #endif
