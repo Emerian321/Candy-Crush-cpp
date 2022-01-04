@@ -26,6 +26,7 @@ elsewhere it will probably crash.
 
 class Canvas {
   std::vector< std::vector<Cell> > cells;
+  std::vector< Cell > toSwapCells;
  public:
   // Constructeur
   Canvas();
