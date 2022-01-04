@@ -23,7 +23,7 @@ class Cell {
   Rectangle r;
   std::vector <Cell *> neighbours;
   Point center;
-  Fruit fruit;
+  Fruit *fruit;
   bool toDestroy = false;
 
  public:
@@ -38,18 +38,24 @@ class Cell {
     this->neighbours = found_neighbours;
   }
 
+  std::vector <int> getMatrixPos(){
+    std::vector <int> pos;
+    pos.push_back((r.getCenter().x - 25) / 56);
+    pos.push_back((r.getCenter().y - 25) / 56);
+    return pos;
+  }
 
   void setToDestroy() {
     toDestroy = true;
   }
 
   // Objects methods
-  void DetectLine();
+  void DetectLine(bool rec);
 
   // Methods that draw and handle events
   void draw();
   void mouseMove(Point mouseLoc);
-  void mouseClick(Point mouseLoc);
+  bool mouseClick(Point mouseLoc);
 
 };
 

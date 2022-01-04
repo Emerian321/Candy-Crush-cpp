@@ -22,10 +22,25 @@ class Fruit {
     // Setter/Getter
     Fl_Color getColor() {
         return color;
-    };
+    }
+
+    void setColor(Fl_Color newColor){
+        color = newColor;
+        shape.setFillColor(newColor);
+    }
 
     void draw() {
         shape.draw();
+    }
+
+    bool mouseClick(Point MouseLoc){
+        if (shape.contains(MouseLoc)){
+            shape.setFrameColor(FL_GREEN);
+        }
+        else{
+            shape.setFrameColor(FL_BLACK);
+        }
+        return shape.contains(MouseLoc);
     }
 
     // Destructor
