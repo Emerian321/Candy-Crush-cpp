@@ -26,7 +26,7 @@ elsewhere it will probably crash.
 
 class Canvas {
   std::vector< std::vector<Fruit> > fruits;
-  std::vector< Fruit > ToSwap;
+  std::vector< Fruit > toSwap;
  public:
   // Constructeur
   Canvas();

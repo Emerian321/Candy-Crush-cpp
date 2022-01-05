@@ -54,15 +54,19 @@ void Canvas::mouseClick(Point mouseLoc) {
   for (auto &v: fruits)
     for (auto &f: v)
       if (f.mouseClick(mouseLoc)){
-        ToSwap.push_back(f);
-        if (ToSwap.size() == 2 
-        && std::find(ToSwap[1].getNeighbours().begin(), ToSwap[1].getNeighbours().end(), &ToSwap[0]) != ToSwap[1].getNeighbours().end()){
-  
+        toSwap.push_back(f);
+        if (toSwap.size() == 2 
+        && std::find(toSwap[1].getNeighbours().begin(), toSwap[1].getNeighbours().end(), &toSwap[0]) != toSwap[1].getNeighbours().end()){
+          int y = toSwap[0].getMatrixPos()[0];
+          int x = toSwap[0].getMatrixPos()[1];
+          int yp = toSwap[1].getMatrixPos()[0];
+          int xp = toSwap[1].getMatrixPos()[1];
+          std::swap(fruits[y][x], fruits[yp][xp]);
         }
-      for (auto &f: ToSwap) {
+      for (auto &f: toSwap) {
         f.setFrameColor(FL_BLACK);
       }
-      ToSwap.clear();
+      toSwap.clear();
       }
 }
 
