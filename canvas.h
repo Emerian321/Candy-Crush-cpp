@@ -22,10 +22,13 @@ elsewhere it will probably crash.
 #define __CANVAS_H
 
 #include "fruit.h"
+#include "const.h"
+#include <stdio.h>
+#include <iostream>
 #include <vector>
 
 class Canvas {
-  std::vector< std::vector<Fruit> > fruits;
+  std::vector< std::vector<Fruit *> > fruits;
   std::vector< Fruit > toSwap;
  public:
   // Constructeur
@@ -34,6 +37,21 @@ class Canvas {
   // Complément Constructeur
   void set_neighbours();
   std::vector <Fruit *> find_neighbours(int x, int y);
+
+  void destroyFruit(){
+    for (int x = 0; x<gridSize; x++) {
+      for (int y = 0; y<gridSize; y++) {
+        fruits[x][y]->detectLine(true);
+      }
+    }
+    for (int x = 0; x<gridSize; x++) {
+      for (auto f: fruits[x]) {
+        if (f->isDestroyed()) {
+          
+        }
+      }
+    }
+  }
 
   // Draw
   void draw();
