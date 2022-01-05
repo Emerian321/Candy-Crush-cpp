@@ -29,15 +29,15 @@ class Rectangle {
             Fl_Color frameColor = FL_BLACK,
             Fl_Color fillColor = FL_WHITE);
   void draw();
-  void setFillColor(Fl_Color newFillColor);
+   void setFillColor(Fl_Color newFillColor);
   Fl_Color getFillColor() {
     return fillColor;
   }
-  void setFrameColor(Fl_Color newFrameColor);
+   void setFrameColor(Fl_Color newFrameColor);
   Fl_Color getFrameColor() {
     return frameColor;
   }
-  void setWidth(int neww) {
+   void setWidth(int neww) {
     w = neww;
   }
   void setHeight(int newh) {

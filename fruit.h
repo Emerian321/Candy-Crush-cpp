@@ -1,49 +1,59 @@
+/*--------------------------------------------------
+
+Fruit class.
+
+The Canvas class below will have Fruits as instance
+vraiables and call the methods of Fruit
+
+--------------------------------------------------*/
+
 #ifndef __FRUIT_H
 #define __FRUIT_H
 
-
-#include <random>
-
+#include <vector>
 #include <FL/Fl.H>
 #include <FL/fl_draw.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Box.H>
 
 #include "rectangle.h"
-#include "const.h"
 
-class Fruit {
-    Fl_Color color;
-    Rectangle shape;
-  public:
-    // Constructor
-    Fruit(Point center): color{COLORS[rand() % 6]}, shape(center, EDGE, EDGE, FL_BLACK, color) {};
+class Fruit: public Rectangle {
+  Fl_Color color;
+  std::vector <Fruit *> neighbours;
+  bool destroy = false;
 
-    // Setter/Getter
-    Fl_Color getColor() {
-        return color;
-    }
+ public:
+  // Constructor
+  Fruit(Point center, Fl_Color color);
 
-    void setColor(Fl_Color newColor){
-        color = newColor;
-        shape.setFillColor(newColor);
-    }
+  // Setters/Getters
+  std::vector <Fruit *> getNeighbours() {
+    return neighbours;
+  }
+  void setNeighbours(std::vector<Fruit *> found_neighbours) {
+    this->neighbours = found_neighbours;
+  }
 
-    void draw() {
-        shape.draw();
-    }
+  std::vector <int> getMatrixPos(){
+    std::vector <int> pos;
+    pos.push_back((getCenter().x - 25) / 56);
+    pos.push_back((getCenter().y - 25) / 56);
+    return pos;
+  }
 
-    bool mouseClick(Point MouseLoc){
-        if (shape.contains(MouseLoc)){
-            shape.setFrameColor(FL_GREEN);
-        }
-        else{
-            shape.setFrameColor(FL_BLACK);
-        }
-        return shape.contains(MouseLoc);
-    }
+  void setToDestroy() {
+    destroy = true;
+  }
 
-    // Destructor
+  // Objects methods
+  void detectLine(bool rec);
+  void swapFruits(Fruit *otherFruit);
+
+  // Methods that draw and handle events
+  void mouseMove(Point mouseLoc);
+  bool mouseClick(Point mouseLoc);
+
 };
 
-#endif 
+#endif

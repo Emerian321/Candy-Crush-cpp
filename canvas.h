@@ -21,19 +21,20 @@ elsewhere it will probably crash.
 #ifndef __CANVAS_H
 #define __CANVAS_H
 
-#include "cell.h"
+#include "fruit.h"
 #include <vector>
 
 class Canvas {
-  std::vector< std::vector<Cell> > cells;
-  std::vector< Cell > toSwapCells;
+  std::vector< std::vector<Fruit> > fruits;
+  std::vector< Fruit > ToSwap;
  public:
   // Constructeur
   Canvas();
 
   // Complément Constructeur
   void set_neighbours();
-  std::vector <Cell *> find_neighbours(int x, int y);
+  std::vector <Fruit *> find_neighbours(int x, int y);
+
   // Draw
   void draw();
 

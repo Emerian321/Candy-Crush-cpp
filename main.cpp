@@ -14,7 +14,6 @@
 #include <array>
 
 #include "canvas.h"
-#include "cell.h"
 #include "rectangle.h"
 #include "point.h"
 #include "const.h"
