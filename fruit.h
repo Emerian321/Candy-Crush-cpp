@@ -31,6 +31,11 @@ class Fruit: public Rectangle {
   std::vector <Fruit *> getNeighbours() {
     return neighbours;
   }
+
+  bool isDestroyed(){
+    return this->destroy;
+  }
+
   void setNeighbours(std::vector<Fruit *> found_neighbours) {
     this->neighbours = found_neighbours;
   }
@@ -43,7 +48,7 @@ class Fruit: public Rectangle {
   }
 
   void setToDestroy() {
-    destroy = true;
+    this->destroy = true;
   }
 
   // Objects methods

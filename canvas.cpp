@@ -8,28 +8,24 @@ Canvas::Canvas() {
   for (int x = 0; x<gridSize; x++) {
     fruits.push_back({});
     for (int y = 0; y<gridSize; y++) {
-      fruits[x].push_back({{56*x+25, 56*y+25}, COLORS[rand() % 6]});
+      fruits[x].push_back(new Fruit{{56*x+25, 56*y+25}, COLORS[rand() % 6]});
     }
   }
   set_neighbours();
-  for (int x = 0; x<gridSize; x++) {
-    for (int y = 0; y<gridSize; y++) {
-      fruits[x][y].detectLine(true);
-    }
-  }
+  destroyFruit();
 }
 
 void Canvas::set_neighbours() {
   for (int x = 0; x<gridSize; x++)
     for (int y = 0; y<gridSize; y++)
-      fruits[x][y].setNeighbours(find_neighbours(x, y));
+      fruits[x][y]->setNeighbours(find_neighbours(x, y));
 }
 
 std::vector <Fruit *>Canvas::find_neighbours(int x, int y) {
   std::vector <Fruit *> neighbours;
   for (auto DIRECTION: DIRECTIONS) {
     if(0 <= x+DIRECTION[0] && x+DIRECTION[0] < gridSize && 0 <= y+DIRECTION[1] && y+DIRECTION[1] < gridSize){
-      neighbours.push_back(&fruits[x+DIRECTION[0]][y+DIRECTION[1]]);
+      neighbours.push_back(fruits[x+DIRECTION[0]][y+DIRECTION[1]]);
     }
     else{
       neighbours.push_back(nullptr);
@@ -41,20 +37,20 @@ std::vector <Fruit *>Canvas::find_neighbours(int x, int y) {
 void Canvas::draw() {
   for (auto &v: fruits)
     for (auto &f: v)
-      f.draw();
+      f->draw();
 }
 
 void Canvas::mouseMove(Point mouseLoc) {
   for (auto &v: fruits)
     for (auto &f: v)
-      f.mouseMove(mouseLoc);
+      f->mouseMove(mouseLoc);
 }
 
 void Canvas::mouseClick(Point mouseLoc) {
   for (auto &v: fruits)
-    for (auto &f: v)
-      if (f.mouseClick(mouseLoc)){
-        toSwap.push_back(f);
+    for (auto f: v)
+      if (f->mouseClick(mouseLoc)){
+        toSwap.push_back(*f);
         if (toSwap.size() == 2 
         && std::find(toSwap[1].getNeighbours().begin(), toSwap[1].getNeighbours().end(), &toSwap[0]) != toSwap[1].getNeighbours().end()){
           int y = toSwap[0].getMatrixPos()[0];

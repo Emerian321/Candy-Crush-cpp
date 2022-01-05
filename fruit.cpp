@@ -15,8 +15,11 @@ void Fruit::detectLine(bool rec) {
   for (int i = 0; i < 2; i++){
     if (neighbours[i] != nullptr && neighbours[i + 2] != nullptr){
       if (getFillColor() == neighbours[i]->getFillColor() && getFillColor() == neighbours[i + 2]->getFillColor()) {
-        setFillColor(FL_BLACK);
+        this->setToDestroy();
+        this->setFillColor(FL_BLACK);
+        neighbours[i]->setToDestroy();
         neighbours[i]->setFillColor(FL_BLACK);
+        neighbours[i + 2]->setToDestroy();
         neighbours[i + 2]->setFillColor(FL_BLACK);
       }
     }
@@ -29,6 +32,6 @@ void Fruit::swapFruits(Fruit *otherFruit) {
 }
 
 bool Fruit::mouseClick(Point mouseLoc) {
-
+  return contains(mouseLoc);
 }
 
