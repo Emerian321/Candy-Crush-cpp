@@ -29,7 +29,7 @@ elsewhere it will probably crash.
 
 class Canvas {
   std::vector< std::vector<Fruit *> > fruits;
-  std::vector< Fruit > toSwap;
+  std::vector< Fruit *> toSwap;
  public:
   // Constructeur
   Canvas();
@@ -38,21 +38,9 @@ class Canvas {
   void set_neighbours();
   std::vector <Fruit *> find_neighbours(int x, int y);
 
-  void destroyFruit(){
-    for (int x = 0; x<gridSize; x++) {
-      for (int y = 0; y<gridSize; y++) {
-        fruits[x][y]->detectLine(true);
-      }
-    }
-    for (int x = 0; x<gridSize; x++) {
-      for (auto f: fruits[x]) {
-        if (f->isDestroyed()) {
-          
-        }
-      }
-    }
-  }
-
+  // Méthode objet
+  bool destroyFruits();
+  void swapFruits(Fruit *fruit1, Fruit *fruit2);
   // Draw
   void draw();
 

@@ -47,13 +47,17 @@ class Fruit: public Rectangle {
     return pos;
   }
 
+  void setScreenPos(int x, int y) {
+    setCenter({(x+25) * 56, (y+25) * 56});
+  }
+
   void setToDestroy() {
     this->destroy = true;
   }
 
   // Objects methods
-  void detectLine(bool rec);
-  void swapFruits(Fruit *otherFruit);
+  bool detectLine(bool rec);
+  bool isNeighbour(Fruit *fruit);
 
   // Methods that draw and handle events
   void mouseMove(Point mouseLoc);

@@ -12,7 +12,7 @@ Canvas::Canvas() {
     }
   }
   set_neighbours();
-  destroyFruit();
+  destroyFruits();
 }
 
 void Canvas::set_neighbours() {
@@ -34,6 +34,34 @@ std::vector <Fruit *>Canvas::find_neighbours(int x, int y) {
   return neighbours;
 }
 
+bool Canvas::destroyFruits() {
+  bool unstable=false;
+  for (int x = 0; x<gridSize; x++) {
+    for (int y = 0; y<gridSize; y++) {
+      fruits[x][y]->detectLine(true);
+    }
+  }
+  for (int x = 0; x<gridSize; x++) {
+    for (auto f: fruits[x]) {
+      if (f->isDestroyed()) {
+        unstable=true;
+      }
+    }
+  }
+  return unstable;
+}
+
+void Canvas::swapFruits(Fruit *fruit1, Fruit *fruit2) {
+  std::vector <int> pos1 = fruit1->getMatrixPos();
+  fruits[pos1[0]][pos1[1]] = fruit2;
+  fruit2->setScreenPos(pos1[0], pos1[1]);
+
+  std::vector <int> pos2 = fruit2->getMatrixPos();
+  fruits[pos2[0]][pos2[1]] = fruit1;
+  fruit2->setScreenPos(pos2[0], pos2[1]);
+}
+
+
 void Canvas::draw() {
   for (auto &v: fruits)
     for (auto &f: v)
@@ -47,22 +75,15 @@ void Canvas::mouseMove(Point mouseLoc) {
 }
 
 void Canvas::mouseClick(Point mouseLoc) {
-  for (auto &v: fruits)
+  for (auto v: fruits)
     for (auto f: v)
       if (f->mouseClick(mouseLoc)){
-        toSwap.push_back(*f);
-        if (toSwap.size() == 2 
-        && std::find(toSwap[1].getNeighbours().begin(), toSwap[1].getNeighbours().end(), &toSwap[0]) != toSwap[1].getNeighbours().end()){
-          int y = toSwap[0].getMatrixPos()[0];
-          int x = toSwap[0].getMatrixPos()[1];
-          int yp = toSwap[1].getMatrixPos()[0];
-          int xp = toSwap[1].getMatrixPos()[1];
-          std::swap(fruits[y][x], fruits[yp][xp]);
+        toSwap.push_back(f);
+        if (toSwap.size() == 2 && toSwap[0]->isNeighbour(toSwap[1])) {
+          swapFruits(toSwap[0], toSwap[1]);
+          for (auto s: toSwap) s->setFrameColor(FL_BLACK);
+          toSwap.clear();
         }
-      for (auto &f: toSwap) {
-        f.setFrameColor(FL_BLACK);
-      }
-      toSwap.clear();
       }
 }
 

@@ -49,6 +49,9 @@ class Rectangle {
   int getHeight() {
     return h;
   }
+  void setCenter(Point point) {
+    center = point;
+  }
 
   bool contains(Point p);
 

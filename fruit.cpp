@@ -10,8 +10,7 @@ Fruit::Fruit(Point center, Fl_Color color): Rectangle(center, EDGE, EDGE, FL_BLA
 void Fruit::mouseMove(Point mouseLoc) {
 }
 
-
-void Fruit::detectLine(bool rec) {
+bool Fruit::detectLine(bool rec) {
   for (int i = 0; i < 2; i++){
     if (neighbours[i] != nullptr && neighbours[i + 2] != nullptr){
       if (getFillColor() == neighbours[i]->getFillColor() && getFillColor() == neighbours[i + 2]->getFillColor()) {
@@ -24,14 +23,18 @@ void Fruit::detectLine(bool rec) {
       }
     }
   }
-} 
+}
 
-
-void Fruit::swapFruits(Fruit *otherFruit) {
-  
+bool Fruit::isNeighbour(Fruit *fruit) {
+  for (auto c: neighbours)
+    if (c == fruit) return true;
+  return false;
 }
 
 bool Fruit::mouseClick(Point mouseLoc) {
+  if (contains(mouseLoc)) {
+    setFrameColor(FL_GREEN);
+  }
   return contains(mouseLoc);
 }
 
