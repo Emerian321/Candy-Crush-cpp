@@ -11,6 +11,7 @@ void Fruit::mouseMove(Point mouseLoc) {
 }
 
 bool Fruit::detectLine(bool rec) {
+  bool lineFound = false;
   for (int i = 0; i < 2; i++){
     if (neighbours[i] != nullptr && neighbours[i + 2] != nullptr){
       if (getFillColor() == neighbours[i]->getFillColor() && getFillColor() == neighbours[i + 2]->getFillColor()) {
@@ -20,9 +21,11 @@ bool Fruit::detectLine(bool rec) {
         neighbours[i]->setFillColor(FL_BLACK);
         neighbours[i + 2]->setToDestroy();
         neighbours[i + 2]->setFillColor(FL_BLACK);
+        lineFound = true;
       }
     }
   }
+  return lineFound;
 }
 
 bool Fruit::isNeighbour(Fruit *fruit) {
@@ -34,6 +37,9 @@ bool Fruit::isNeighbour(Fruit *fruit) {
 bool Fruit::mouseClick(Point mouseLoc) {
   if (contains(mouseLoc)) {
     setFrameColor(FL_GREEN);
+  }
+  else {
+    setFrameColor(FL_BLACK);
   }
   return contains(mouseLoc);
 }

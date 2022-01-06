@@ -53,14 +53,17 @@ bool Canvas::destroyFruits() {
 
 void Canvas::swapFruits(Fruit *fruit1, Fruit *fruit2) {
   std::vector <int> pos1 = fruit1->getMatrixPos();
-  fruits[pos1[0]][pos1[1]] = fruit2;
-  fruit2->setScreenPos(pos1[0], pos1[1]);
-
+  auto row1 = fruits[pos1[0]];
   std::vector <int> pos2 = fruit2->getMatrixPos();
-  fruits[pos2[0]][pos2[1]] = fruit1;
-  fruit2->setScreenPos(pos2[0], pos2[1]);
+  auto row2 = fruits[pos2[0]];
+  std::swap(row1[pos1[1]], row2[pos2[1]]);
+  fruit1->setScreenPos(pos2[0], pos2[1]);
+  fruit2->setScreenPos(pos1[0], pos1[1]);
+  pos1 = fruit1->getMatrixPos();
+  pos2 = fruit2->getMatrixPos();
+  std::cout << pos1[0] << pos1[1] << " " << pos2[0] << pos2[1] << std::endl;
+  set_neighbours();
 }
-
 
 void Canvas::draw() {
   for (auto &v: fruits)
@@ -79,9 +82,11 @@ void Canvas::mouseClick(Point mouseLoc) {
     for (auto f: v)
       if (f->mouseClick(mouseLoc)){
         toSwap.push_back(f);
-        if (toSwap.size() == 2 && toSwap[0]->isNeighbour(toSwap[1])) {
+        if (toSwap[0]->isNeighbour(toSwap[1])) {
           swapFruits(toSwap[0], toSwap[1]);
-          for (auto s: toSwap) s->setFrameColor(FL_BLACK);
+          toSwap.clear();
+        }
+        if (toSwap.size() >= 2){
           toSwap.clear();
         }
       }
