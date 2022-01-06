@@ -48,7 +48,7 @@ class Fruit: public Rectangle {
   }
 
   void setScreenPos(int x, int y) {
-    setCenter({(x+25) * 56, (y+25) * 56});
+    setCenter({56 * x + 25, 56 * y + 25});
   }
 
   void setToDestroy() {
