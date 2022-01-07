@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <stdio.h>
 #include <iostream>
+#include <chrono>
 
 Canvas::Canvas() {
   for (int x = 0; x<gridSize; x++) {
@@ -12,7 +13,7 @@ Canvas::Canvas() {
     }
   }
   set_neighbours();
-  destroyFruits();
+  while(destroyFruits()) {std::cout << "boucle" << std::endl;}
 }
 
 void Canvas::set_neighbours() {
@@ -38,13 +39,20 @@ bool Canvas::destroyFruits() {
   bool unstable=false;
   for (int x = 0; x<gridSize; x++) {
     for (int y = 0; y<gridSize; y++) {
-      fruits[x][y]->detectLine(true);
+      fruits[x][y]->detectLine();
     }
   }
   for (int x = 0; x<gridSize; x++) {
     for (auto f: fruits[x]) {
       if (f->isDestroyed()) {
+        f->setToCreate();
         unstable=true;
+        auto fMatPos = f->getMatrixPos();
+        while (fMatPos[1] > 0){
+          swapFruits(f, fruits[fMatPos[0]][fMatPos[1] - 1]);
+          fMatPos = f->getMatrixPos();
+        }
+        f->setFillColor(COLORS[rand() % 6]);
       }
     }
   }
@@ -56,12 +64,10 @@ void Canvas::swapFruits(Fruit *fruit1, Fruit *fruit2) {
   auto row1 = fruits[pos1[0]];
   std::vector <int> pos2 = fruit2->getMatrixPos();
   auto row2 = fruits[pos2[0]];
-  std::swap(row1[pos1[1]], row2[pos2[1]]);
+  fruits[pos1[0]][pos1[1]] = fruit2;
+  fruits[pos2[0]][pos2[1]] = fruit1;
   fruit1->setScreenPos(pos2[0], pos2[1]);
   fruit2->setScreenPos(pos1[0], pos1[1]);
-  pos1 = fruit1->getMatrixPos();
-  pos2 = fruit2->getMatrixPos();
-  std::cout << pos1[0] << pos1[1] << " " << pos2[0] << pos2[1] << std::endl;
   set_neighbours();
 }
 
@@ -84,6 +90,10 @@ void Canvas::mouseClick(Point mouseLoc) {
         toSwap.push_back(f);
         if (toSwap[0]->isNeighbour(toSwap[1])) {
           swapFruits(toSwap[0], toSwap[1]);
+          if (!(destroyFruits())){
+            swapFruits(toSwap[0], toSwap[1]);
+          }
+          while(destroyFruits());
           toSwap.clear();
         }
         if (toSwap.size() >= 2){

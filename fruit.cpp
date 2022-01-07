@@ -10,17 +10,14 @@ Fruit::Fruit(Point center, Fl_Color color): Rectangle(center, EDGE, EDGE, FL_BLA
 void Fruit::mouseMove(Point mouseLoc) {
 }
 
-bool Fruit::detectLine(bool rec) {
+bool Fruit::detectLine() {
   bool lineFound = false;
   for (int i = 0; i < 2; i++){
     if (neighbours[i] != nullptr && neighbours[i + 2] != nullptr){
       if (getFillColor() == neighbours[i]->getFillColor() && getFillColor() == neighbours[i + 2]->getFillColor()) {
         this->setToDestroy();
-        this->setFillColor(FL_BLACK);
         neighbours[i]->setToDestroy();
-        neighbours[i]->setFillColor(FL_BLACK);
         neighbours[i + 2]->setToDestroy();
-        neighbours[i + 2]->setFillColor(FL_BLACK);
         lineFound = true;
       }
     }
