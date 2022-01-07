@@ -55,8 +55,12 @@ class Fruit: public Rectangle {
     this->destroy = true;
   }
 
+  void setToCreate() {
+    this->destroy = false;
+  }
+
   // Objects methods
-  bool detectLine(bool rec);
+  bool detectLine();
   bool isNeighbour(Fruit *fruit);
 
   // Methods that draw and handle events
