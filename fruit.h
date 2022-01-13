@@ -41,6 +41,7 @@ class Fruit: public Rectangle {
   }
 
   std::vector <int> getMatrixPos(){
+    //return the matrix position from the canvas position
     std::vector <int> pos;
     pos.push_back((getCenter().x - 25) / 56);
     pos.push_back((getCenter().y - 25) / 56);

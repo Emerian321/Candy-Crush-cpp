@@ -6,14 +6,17 @@
 #include <chrono>
 
 Canvas::Canvas() {
+  //plate initialisation
   for (int x = 0; x<gridSize; x++) {
     fruits.push_back({});
     for (int y = 0; y<gridSize; y++) {
       fruits[x].push_back(new Fruit{{56*x+25, 56*y+25}, COLORS[rand() % 6]});
     }
   }
+  //neighbours detection  and attribution
   set_neighbours();
-  while(destroyFruits()) {std::cout << "boucle" << std::endl;}
+  //while the board still has 3 same color Fruit raws, destroy them
+  while(destroyFruits()) {}
 }
 
 void Canvas::set_neighbours() {
@@ -24,11 +27,13 @@ void Canvas::set_neighbours() {
 
 std::vector <Fruit *>Canvas::find_neighbours(int x, int y) {
   std::vector <Fruit *> neighbours;
+  //for each possible cardinality, check if the new position is still in the board. If so, it's a neighbour.
   for (auto DIRECTION: DIRECTIONS) {
     if(0 <= x+DIRECTION[0] && x+DIRECTION[0] < gridSize && 0 <= y+DIRECTION[1] && y+DIRECTION[1] < gridSize){
       neighbours.push_back(fruits[x+DIRECTION[0]][y+DIRECTION[1]]);
     }
     else{
+      //if the new position is out of board, we replace a fruit with a nullpointer.
       neighbours.push_back(nullptr);
     }
   }
@@ -39,20 +44,23 @@ bool Canvas::destroyFruits() {
   bool unstable=false;
   for (int x = 0; x<gridSize; x++) {
     for (int y = 0; y<gridSize; y++) {
+      //for each cell, check if they are sharing color with two of their neighbours horizontally or vertically
       fruits[x][y]->detectLine();
     }
   }
   for (int x = 0; x<gridSize; x++) {
     for (auto f: fruits[x]) {
       if (f->isDestroyed()) {
+        //if the fruit is marked as a Fruit to destroy
         f->setToCreate();
+        //it is no longer
         unstable=true;
         auto fMatPos = f->getMatrixPos();
-        while (fMatPos[1] > 0){
-          swapFruits(f, fruits[fMatPos[0]][fMatPos[1] - 1]);
+        while (fMatPos[1] > 0){ //while the fruit is not all the way up
+          swapFruits(f, fruits[fMatPos[0]][fMatPos[1] - 1]); //he swaps with his upper neighbour
           fMatPos = f->getMatrixPos();
         }
-        f->setFillColor(COLORS[rand() % 6]);
+        f->setFillColor(COLORS[rand() % 6]); //when he finally reach the top, the fruit gets assigned a new color
       }
     }
   }

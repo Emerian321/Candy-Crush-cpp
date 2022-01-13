@@ -1,5 +1,7 @@
 #include "rectangle.h"
 
+//Everything is pretty much self explanatory
+
 Rectangle::Rectangle(Point center, int w, int h,
                      Fl_Color frameColor,
                      Fl_Color fillColor):

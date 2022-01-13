@@ -20,6 +20,10 @@ should not need to edit it.
 
 #include "point.h"
 
+
+//Everything is pretty much self explanatory
+
+
 class Rectangle {
   Point center;
   int w, h;
