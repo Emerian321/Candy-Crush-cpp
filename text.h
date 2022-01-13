@@ -13,6 +13,9 @@ call draw on the temporary.
 It should have all the features you need and you
 should not need to edit it.
 
+
+Unused but it's here just in case
+
 --------------------------------------------------*/
 
 #include <FL/Fl.H>

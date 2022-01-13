@@ -11,9 +11,13 @@ void Fruit::mouseMove(Point mouseLoc) {
 }
 
 bool Fruit::detectLine() {
+  //Check if the cell is in the middle of a 3 same color fruit combination.
+  //Fruit combinations can only be vertical or horizontal.
   bool lineFound = false;
   for (int i = 0; i < 2; i++){
+    //if the Fruit is between two other fruits
     if (neighbours[i] != nullptr && neighbours[i + 2] != nullptr){
+      //check if their color match
       if (getFillColor() == neighbours[i]->getFillColor() && getFillColor() == neighbours[i + 2]->getFillColor()) {
         this->setToDestroy();
         neighbours[i]->setToDestroy();
@@ -26,6 +30,7 @@ bool Fruit::detectLine() {
 }
 
 bool Fruit::isNeighbour(Fruit *fruit) {
+  //check if two fruits are neighbours
   for (auto c: neighbours)
     if (c == fruit) return true;
   return false;
