@@ -1,2 +1,1 @@
-# projet-f202
-Projet ldp 2
+Implementation attempt of a candy crush game on C++
